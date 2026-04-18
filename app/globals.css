@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --laranja: #FF6A1A;
+  --laranja-hover: #E55A0E;
+  --laranja-soft: #FFE6D6;
+  --preto: #0E0E10;
+  --aco: #2A2D33;
+  --graxa: #55585F;
+  --concreto: #C9C8C3;
+  --papel: #F5F2EC;
+  --papel-alt: #EDE9E0;
+  --papel-pure: #FFFFFF;
+  --amarelo: #FFC400;
+  --vermelho: #D7263D;
+  --verde: #4CB944;
+  --whatsapp: #25D366;
+  --border-soft: #D9D6CE;
+  --fg2: #3A3D43;
+  --fg3: var(--graxa);
+  --shadow-sm: 2px 2px 0 0 var(--preto);
+  --shadow-md: 4px 4px 0 0 var(--preto);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--papel);
+  color: var(--preto);
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+/* ============ PANEL / KPI ============ */
+.panel {
+  background: var(--papel-pure);
+  border: 2px solid var(--preto);
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 2px solid var(--preto);
+  background: var(--papel-alt);
+}
+.panel-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.panel-body.pad { padding: 18px; }
+
+.kpi {
+  background: white;
+  border: 2px solid var(--preto);
+  border-radius: 4px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+.kpi::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--laranja);
+}
+.kpi.alt::before { background: var(--preto); }
+.kpi.warn::before { background: var(--amarelo); }
+.kpi.success::before { background: var(--verde); }
+.kpi-label { font-family: "Oswald", sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--graxa); margin-bottom: 10px; }
+.kpi-value { font-family: "Oswald", sans-serif; font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.kpi-sub { margin-top: 8px; font-size: 12px; color: var(--fg2); font-family: "JetBrains Mono", monospace; }
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 2px solid var(--preto);
+  border-radius: 4px;
+  background: var(--laranja);
+  color: var(--preto);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 120ms, box-shadow 120ms, background 120ms;
+  text-decoration: none;
+}
+.btn:hover { background: var(--laranja-hover); }
+.btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 0 var(--preto); }
+.btn.secondary { background: var(--preto); color: var(--papel); }
+.btn.secondary:hover { background: var(--aco); }
+.btn.ghost { background: transparent; box-shadow: none; }
+.btn.ghost:hover { background: var(--preto); color: var(--papel); }
+.btn.sm { padding: 8px 14px; font-size: 12px; }
+.btn.xs { padding: 6px 10px; font-size: 11px; letter-spacing: 0.08em; }
+
+/* ============ FIELDS ============ */
+.field {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--preto);
+  border-radius: 2px;
+  background: white;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: var(--preto);
+}
+.field:focus { outline: 3px solid var(--laranja-soft); outline-offset: 0; }
+.field-label { font-family: "Oswald", sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--graxa); margin-bottom: 6px; display: block; }
+.field-group { display: flex; flex-direction: column; gap: 0; }
+
+/* ============ PILL / STATUS ============ */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: "Oswald", sans-serif; font-weight: 600; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  border: 2px solid var(--preto);
+  background: white;
+}
+.pill.aberta { background: #FFE6D6; color: #C04A08; }
+.pill.andamento { background: #FFF3C0; color: #8A6A00; }
+.pill.aguardando { background: #E6E4DD; color: #3A3D43; }
+.pill.concluida { background: #E4F5E1; color: #2E7A24; }
+.pill.faturada { background: #D6E8FF; color: #1A4C8A; }
+.pill.cancelada { background: #F5C6CB; color: #721C24; }
+.pill.urgente { background: var(--vermelho); color: white; }
+
+/* ============ TABLE ============ */
+table.data { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.data thead th {
+  background: var(--papel);
+  font-family: "Oswald", sans-serif; font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--fg2);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 2px solid var(--preto);
+}
+table.data tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+table.data tbody tr { transition: background 120ms; }
+table.data tbody tr:hover { background: #FAF7F0; }
+table.data tbody tr:last-child td { border-bottom: 0; }
+.placa {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace; font-weight: 600; letter-spacing: 2px;
+  background: var(--preto); color: var(--papel);
+  padding: 3px 8px; border-radius: 2px; font-size: 12px;
+}
+.mono { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+
+/* ============ EYEBROW / PAGE HEAD ============ */
+.eyebrow {
+  font-family: "Oswald", sans-serif;
+  font-size: 13px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--laranja);
+}
+.page-title {
+  font-family: "Oswald", sans-serif; font-weight: 700;
+  font-size: 32px; text-transform: uppercase;
+  letter-spacing: -0.01em; line-height: 1;
+}
+
+/* ============ HAZARD STRIPES ============ */
+.hazard-stripes {
+  background-image: repeating-linear-gradient(45deg, var(--preto) 0 14px, var(--laranja) 14px 28px);
+}
+
+/* ============ CHIP / FILTER ============ */
+.chip {
+  padding: 6px 12px;
+  border: 2px solid var(--preto);
+  background: white; border-radius: 2px;
+  font-family: "Oswald", sans-serif; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.chip.active { background: var(--preto); color: var(--papel); }
