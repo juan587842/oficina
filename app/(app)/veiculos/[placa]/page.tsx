@@ -20,8 +20,8 @@ export default async function VeiculoDetailPage({ params }: { params: { placa: s
   return (
     <>
       <Topbar crumb={`Veículos / ${veiculo.placa}`} />
-      <div style={{ padding: 28, maxWidth: 900 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+      <div className="page-pad">
+        <div className="page-head-resp" style={{ marginBottom: 24 }}>
           <div>
             <div className="eyebrow">Cadastros</div>
             <h1 className="page-title" style={{ margin: "6px 0" }}>{veiculo.marca} {veiculo.modelo}</h1>

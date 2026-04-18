@@ -23,7 +23,7 @@ export default function VeiculoForm({
   return (
     <form action={formAction} className="panel">
       <div className="panel-head"><span className="panel-title">{editar ? "Editar veículo" : "Novo veículo"}</span></div>
-      <div className="panel-body pad" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      <div className="panel-body pad form-grid-2">
         <div>
           <label className="field-label">Placa</label>
           <input name="placa" className="field mono" defaultValue={v("placa")} required disabled={editar} placeholder="ABC-1D23" />
@@ -51,16 +51,16 @@ export default function VeiculoForm({
           <label className="field-label">KM atual</label>
           <input name="km_atual" type="number" className="field mono" defaultValue={v("km_atual")} />
         </div>
-        <div style={{ gridColumn: "span 2" }}>
+        <div className="form-col-2">
           <label className="field-label">Tipo</label>
           <input name="tipo" className="field" defaultValue={v("tipo")} placeholder="caminhão, cavalo, carreta…" />
         </div>
-        <div style={{ gridColumn: "span 2" }}>
+        <div className="form-col-2">
           <label className="field-label">Observações</label>
           <textarea name="observacoes" className="field" rows={3} defaultValue={v("observacoes")} />
         </div>
-        {state?.erro && <div style={{ gridColumn: "span 2", color: "var(--vermelho)" }}>{state.erro}</div>}
-        <div style={{ gridColumn: "span 2" }}>
+        {state?.erro && <div className="form-col-2" style={{ color: "var(--vermelho)" }}>{state.erro}</div>}
+        <div className="form-col-2">
           <SubmitBtn label={editar ? "Salvar alterações" : "Cadastrar veículo"} />
         </div>
       </div>

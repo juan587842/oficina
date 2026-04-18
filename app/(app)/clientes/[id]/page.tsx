@@ -24,8 +24,8 @@ export default async function ClienteDetailPage({ params }: { params: { id: stri
   return (
     <>
       <Topbar crumb={`Clientes / ${cliente.nome}`} />
-      <div style={{ padding: 28, maxWidth: 1400 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 24, paddingBottom: 16, borderBottom: "2px solid var(--preto)" }}>
+      <div className="page-pad">
+        <div className="page-head-resp" style={{ marginBottom: 24, paddingBottom: 16, borderBottom: "2px solid var(--preto)" }}>
           <div>
             <div className="eyebrow mono" style={{ color: "var(--graxa)" }}>{cliente.id}</div>
             <h1 className="page-title" style={{ margin: "4px 0" }}>{cliente.nome}</h1>
@@ -38,7 +38,7 @@ export default async function ClienteDetailPage({ params }: { params: { id: stri
           </form>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16 }}>
+        <div className="detail-grid-resp">
           <div>
             <ClienteForm action={update} inicial={cliente} editar />
 
@@ -47,22 +47,24 @@ export default async function ClienteDetailPage({ params }: { params: { id: stri
                 <span className="panel-title">Veículos</span>
                 <Link href={`/veiculos/novo?cliente=${cliente.id}`} className="btn xs">+ Veículo</Link>
               </div>
-              <table className="data">
-                <thead><tr><th>Placa</th><th>Marca/Modelo</th><th>Ano</th><th>KM</th></tr></thead>
-                <tbody>
-                  {(veiculos ?? []).map(v => (
-                    <tr key={v.placa}>
-                      <td><Link href={`/veiculos/${v.placa}`}><span className="placa">{v.placa}</span></Link></td>
-                      <td>{v.marca} {v.modelo}</td>
-                      <td className="mono">{v.ano ?? "—"}</td>
-                      <td className="mono">{v.km_atual?.toLocaleString("pt-BR") ?? "—"}</td>
-                    </tr>
-                  ))}
-                  {(!veiculos || veiculos.length === 0) && (
-                    <tr><td colSpan={4} style={{ textAlign: "center", padding: 24, color: "var(--graxa)" }}>Nenhum veículo. <Link href={`/veiculos/novo?cliente=${cliente.id}`} style={{ color: "var(--laranja)" }}>Adicionar →</Link></td></tr>
-                  )}
-                </tbody>
-              </table>
+              <div className="table-wrap">
+                <table className="data">
+                  <thead><tr><th>Placa</th><th>Marca/Modelo</th><th>Ano</th><th>KM</th></tr></thead>
+                  <tbody>
+                    {(veiculos ?? []).map(v => (
+                      <tr key={v.placa}>
+                        <td><Link href={`/veiculos/${v.placa}`}><span className="placa">{v.placa}</span></Link></td>
+                        <td>{v.marca} {v.modelo}</td>
+                        <td className="mono">{v.ano ?? "—"}</td>
+                        <td className="mono">{v.km_atual?.toLocaleString("pt-BR") ?? "—"}</td>
+                      </tr>
+                    ))}
+                    {(!veiculos || veiculos.length === 0) && (
+                      <tr><td colSpan={4} style={{ textAlign: "center", padding: 24, color: "var(--graxa)" }}>Nenhum veículo. <Link href={`/veiculos/novo?cliente=${cliente.id}`} style={{ color: "var(--laranja)" }}>Adicionar →</Link></td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 

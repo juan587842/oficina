@@ -11,9 +11,13 @@ export default async function NovaOSPage() {
   return (
     <>
       <Topbar crumb="OS / Nova" />
-      <div style={{ padding: 28, maxWidth: 900 }}>
-        <div className="eyebrow">Operação</div>
-        <h1 className="page-title" style={{ margin: "6px 0 20px" }}>Nova Ordem de Serviço</h1>
+      <div className="page-pad">
+        <div className="page-head-resp" style={{ marginBottom: 24 }}>
+          <div>
+            <div className="eyebrow">Operação</div>
+            <h1 className="page-title" style={{ margin: "6px 0 0" }}>Nova Ordem de Serviço</h1>
+          </div>
+        </div>
         <NovaOSForm action={criarOS} clientes={clientes ?? []} veiculos={veiculos ?? []} />
       </div>
     </>

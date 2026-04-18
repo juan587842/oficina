@@ -21,7 +21,7 @@ export default function ClienteForm({
   return (
     <form action={formAction} className="panel">
       <div className="panel-head"><span className="panel-title">{editar ? "Editar cliente" : "Novo cliente"}</span></div>
-      <div className="panel-body pad" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+      <div className="panel-body pad form-grid-2">
         <div>
           <label className="field-label">Código</label>
           <input name="id" className="field mono" defaultValue={v("id")} disabled={editar} required placeholder="C-001" />
@@ -33,7 +33,7 @@ export default function ClienteForm({
             <option value="autonomo">Autônomo</option>
           </select>
         </div>
-        <div style={{ gridColumn: "span 2" }}>
+        <div className="form-col-2">
           <label className="field-label">Nome / Razão social</label>
           <input name="nome" className="field" defaultValue={v("nome")} required />
         </div>
@@ -72,16 +72,16 @@ export default function ClienteForm({
             <option value="inativo">Inativo</option>
           </select>
         </div>
-        <div style={{ gridColumn: "span 2" }}>
+        <div className="form-col-2">
           <label className="field-label">Endereço</label>
           <input name="endereco" className="field" defaultValue={v("endereco")} />
         </div>
-        <div style={{ gridColumn: "span 2" }}>
+        <div className="form-col-2">
           <label className="field-label">Observações</label>
           <textarea name="observacoes" className="field" rows={3} defaultValue={v("observacoes")} />
         </div>
-        {state?.erro && <div style={{ gridColumn: "span 2", color: "var(--vermelho)" }}>{state.erro}</div>}
-        <div style={{ gridColumn: "span 2", display: "flex", gap: 10 }}>
+        {state?.erro && <div className="form-col-2" style={{ color: "var(--vermelho)" }}>{state.erro}</div>}
+        <div className="form-col-2" style={{ display: "flex", gap: 10 }}>
           <SubmitBtn label={editar ? "Salvar alterações" : "Cadastrar cliente"} />
         </div>
       </div>

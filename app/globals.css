@@ -293,6 +293,14 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   padding: 18px;
 }
 
+/* Grid de formulários — 2 colunas responsivo */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-col-2 { grid-column: span 2; }
+
 /* Tabelas com scroll horizontal no mobile */
 .table-wrap {
   overflow-x: auto;
