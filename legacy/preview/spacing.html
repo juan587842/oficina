@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Spacing</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  body { padding: 20px; }
+  .wrap { width: 660px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 6px 0; }
+  .spec { font-family: var(--font-mono); font-size: 11px; color: var(--graxa); min-width: 80px; }
+  .spec strong { color: var(--preto-diesel); font-weight: 700; }
+  .bar { height: 18px; background: var(--laranja-oficina); border: 2px solid var(--preto-diesel); }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--graxa); }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="row"><div class="spec"><strong>s-1</strong></div><div class="bar" style="width:4px"></div><div class="label">4px</div></div>
+  <div class="row"><div class="spec"><strong>s-2</strong></div><div class="bar" style="width:8px"></div><div class="label">8px</div></div>
+  <div class="row"><div class="spec"><strong>s-3</strong></div><div class="bar" style="width:12px"></div><div class="label">12px</div></div>
+  <div class="row"><div class="spec"><strong>s-4</strong></div><div class="bar" style="width:16px"></div><div class="label">16px</div></div>
+  <div class="row"><div class="spec"><strong>s-5</strong></div><div class="bar" style="width:24px"></div><div class="label">24px · default gutter</div></div>
+  <div class="row"><div class="spec"><strong>s-6</strong></div><div class="bar" style="width:32px"></div><div class="label">32px</div></div>
+  <div class="row"><div class="spec"><strong>s-7</strong></div><div class="bar" style="width:48px"></div><div class="label">48px</div></div>
+  <div class="row"><div class="spec"><strong>s-8</strong></div><div class="bar" style="width:64px"></div><div class="label">64px</div></div>
+  <div class="row"><div class="spec"><strong>s-9</strong></div><div class="bar" style="width:96px"></div><div class="label">96px · section</div></div>
+</div>
+</body></html>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" fill="none">
+  <g transform="translate(10,18)" fill="#0E0E10">
+    <rect x="0" y="0" width="104" height="104" rx="4" fill="none" stroke="#0E0E10" stroke-width="3"></rect>
+    <g transform="translate(22,14)">
+      <rect x="8" y="0" width="44" height="10"></rect>
+      <rect x="4" y="12" width="52" height="4"></rect>
+      <rect x="4" y="18" width="52" height="4"></rect>
+      <rect x="8" y="26" width="44" height="26" rx="2"></rect>
+      <path d="M28 54 L20 76 L40 76 L32 54 Z"></path>
+    </g>
+  </g>
+  <g transform="translate(140,32)" fill="#0E0E10" font-family="Oswald, Impact, sans-serif" font-weight="700">
+    <text x="0" y="34" font-size="38" letter-spacing="-0.5">FABIO</text>
+    <text x="0" y="68" font-size="38" letter-spacing="-0.5">MECÂNICA</text>
+    <text x="0" y="96" font-size="22" letter-spacing="4" font-weight="600">DIESEL · CAMINHÕES</text>
+  </g>
+</svg>

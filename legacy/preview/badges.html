@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Badges</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--papel); }
+  .wrap { width: 660px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    border: 2px solid var(--preto-diesel);
+    background: white;
+    color: var(--preto-diesel);
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 999px; background: currentColor; }
+  .badge.success { background: #E4F5E1; color: #2E7A24; }
+  .badge.warning { background: #FFF3C0; color: #8A6A00; }
+  .badge.danger { background: #FBDCE0; color: #9A1B2A; }
+  .badge.open { background: var(--laranja-oficina); }
+  .badge.solid { background: var(--preto-diesel); color: var(--papel); }
+</style></head>
+<body>
+<div class="wrap">
+  <span class="badge open"><span class="dot"></span>OFICINA ABERTA</span>
+  <span class="badge success"><span class="dot"></span>SERVIÇO CONCLUÍDO</span>
+  <span class="badge warning"><span class="dot"></span>AGUARDANDO PEÇA</span>
+  <span class="badge danger"><span class="dot"></span>URGENTE</span>
+  <span class="badge solid">FROTA</span>
+  <span class="badge">AUTÔNOMO</span>
+  <span class="badge">#OS-2026-0418</span>
+</div>
+</body></html>

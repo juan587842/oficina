@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Patterns</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--papel); }
+  .wrap { width: 660px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .tile { height: 130px; border: 2px solid var(--preto-diesel); border-radius: 4px; position: relative; overflow: hidden; }
+  .lbl {
+    position: absolute; left: 10px; bottom: 10px;
+    background: rgba(14,14,16,0.88); color: var(--papel);
+    padding: 4px 8px; border-radius: 2px;
+    font-family: var(--font-mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .stripes {
+    background: repeating-linear-gradient(45deg, #0E0E10 0 14px, #FF6A1A 14px 28px);
+  }
+  .diamond {
+    background: url('../assets/pattern-diamond-plate.svg') repeat, #1A1B1F;
+    background-size: 40px 40px;
+  }
+  .diamond-overlay {
+    background: #0E0E10;
+    position: relative;
+  }
+  .diamond-overlay::after {
+    content: ""; position: absolute; inset: 0;
+    background: url('../assets/pattern-diamond-plate.svg') repeat;
+    background-size: 40px 40px;
+    opacity: 0.06;
+  }
+  .diamond-overlay .inner {
+    position: relative; z-index: 1; color: var(--papel);
+    font-family: var(--font-display); font-size: 22px; font-weight: 700;
+    text-transform: uppercase; padding: 22px; letter-spacing: -0.02em;
+  }
+  .hazard-top {
+    background: var(--papel-pure);
+    padding: 18px;
+    position: relative;
+  }
+  .hazard-top::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px;
+    background: repeating-linear-gradient(45deg, #0E0E10 0 8px, #FF6A1A 8px 16px);
+  }
+  .hazard-top h4 {
+    margin: 8px 0 4px; font-family: var(--font-display);
+    font-size: 16px; text-transform: uppercase; letter-spacing: .04em;
+  }
+  .hazard-top p { margin: 0; font-size: 13px; color: var(--fg2); }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="tile stripes"><span class="lbl">hazard stripes · 45°</span></div>
+  <div class="tile diamond"><span class="lbl">diamond plate</span></div>
+  <div class="tile diamond-overlay"><div class="inner">Dark hero<br>c/ textura</div></div>
+  <div class="tile hazard-top"><h4>Ordem crítica</h4><p>Stripe-topped card — use para alertas e CTAs urgentes.</p></div>
+</div>
+</body></html>
