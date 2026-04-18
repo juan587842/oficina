@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import Sidebar from "@/components/shell/Sidebar";
+import AppShell from "@/components/shell/AppShell";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient();
@@ -15,12 +15,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   ]);
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", minHeight: "100vh" }}>
-      <Sidebar
-        counts={{ os: osCount ?? 0, clientes: clientesCount ?? 0, veiculos: veiculosCount ?? 0 }}
-        user={{ nome: profile?.nome ?? user.email ?? "Usuário", papel: profile?.papel ?? "recepcao" }}
-      />
-      <div style={{ minWidth: 0 }}>{children}</div>
-    </div>
+    <AppShell
+      counts={{ os: osCount ?? 0, clientes: clientesCount ?? 0, veiculos: veiculosCount ?? 0 }}
+      user={{ nome: profile?.nome ?? user.email ?? "Usuário", papel: profile?.papel ?? "recepcao" }}
+    >
+      {children}
+    </AppShell>
   );
 }

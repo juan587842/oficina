@@ -1,10 +1,12 @@
 "use client";
-import { Bell, Search } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { useSidebar } from "@/lib/sidebar-context";
 
 export default function Topbar({ crumb }: { crumb: string }) {
   const router = useRouter();
+  const { toggle } = useSidebar();
 
   async function sair() {
     const supabase = createClient();
@@ -15,28 +17,28 @@ export default function Topbar({ crumb }: { crumb: string }) {
 
   return (
     <div style={{
-      height: 64, background: "var(--papel)",
+      height: 56,
+      background: "var(--papel)",
       borderBottom: "2px solid var(--preto)",
       display: "flex", alignItems: "center",
-      padding: "0 24px", gap: 16,
+      padding: "0 16px", gap: 12,
       position: "sticky", top: 0, zIndex: 10
     }}>
-      <div style={{ fontFamily: "JetBrains Mono", fontSize: 12, color: "var(--graxa)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+      <button onClick={toggle} className="hamburger-btn" aria-label="Abrir menu">
+        <Menu size={22} />
+      </button>
+
+      <div style={{ fontFamily: "JetBrains Mono", fontSize: 12, color: "var(--graxa)", textTransform: "uppercase", letterSpacing: "0.06em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
         CRM / <strong style={{ color: "var(--preto)" }}>{crumb}</strong>
       </div>
 
-      <div style={{ flex: 1, maxWidth: 400, marginLeft: 24, position: "relative" }}>
-        <Search size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--graxa)" }} />
-        <input className="field" placeholder="Buscar cliente, placa, OS…" style={{ paddingLeft: 38 }} />
-      </div>
-
-      <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
         <button aria-label="Notificações" style={{
-          width: 40, height: 40, borderRadius: 2,
+          width: 36, height: 36, borderRadius: 2,
           background: "transparent", border: "2px solid var(--preto)",
           display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer"
         }}>
-          <Bell size={18} />
+          <Bell size={16} />
         </button>
         <button className="btn xs secondary" onClick={sair}>Sair</button>
       </div>

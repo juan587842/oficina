@@ -14,8 +14,8 @@ export default async function VeiculosPage() {
   return (
     <>
       <Topbar crumb="Veículos" />
-      <div style={{ padding: 28, maxWidth: 1400 }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, marginBottom: 24, paddingBottom: 16, borderBottom: "2px solid var(--preto)" }}>
+      <div className="page-pad">
+        <div className="page-head-resp">
           <div>
             <div className="eyebrow">Cadastros</div>
             <h1 className="page-title" style={{ marginTop: 6 }}>Veículos</h1>
@@ -24,7 +24,7 @@ export default async function VeiculosPage() {
           <Link href="/veiculos/novo" className="btn">+ Novo veículo</Link>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
+        <div className="veiculos-grid-resp">
           {(veiculos ?? []).map((v: any) => (
             <Link key={v.placa} href={`/veiculos/${v.placa}`} style={{
               background: "white", border: "2px solid var(--preto)", borderRadius: 4,

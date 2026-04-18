@@ -19,8 +19,8 @@ export default async function ClientesPage({ searchParams }: { searchParams: { t
   return (
     <>
       <Topbar crumb="Clientes" />
-      <div style={{ padding: 28, maxWidth: 1400 }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, marginBottom: 24, paddingBottom: 16, borderBottom: "2px solid var(--preto)" }}>
+      <div className="page-pad">
+        <div className="page-head-resp">
           <div>
             <div className="eyebrow">Cadastros</div>
             <h1 className="page-title" style={{ marginTop: 6 }}>Clientes</h1>
@@ -36,6 +36,7 @@ export default async function ClientesPage({ searchParams }: { searchParams: { t
         </div>
 
         <div className="panel">
+          <div className="table-wrap">
           <table className="data">
             <thead>
               <tr><th>Código</th><th>Nome</th><th>Tipo</th><th>CNPJ/CPF</th><th>Cidade</th><th>Telefone</th><th>Status</th></tr>
@@ -57,6 +58,7 @@ export default async function ClientesPage({ searchParams }: { searchParams: { t
               )}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </>

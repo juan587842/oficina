@@ -26,8 +26,8 @@ export default async function OrdensPage() {
   return (
     <>
       <Topbar crumb="Ordens de Serviço" />
-      <div style={{ padding: 28, maxWidth: 1400 }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, marginBottom: 24, paddingBottom: 16, borderBottom: "2px solid var(--preto)" }}>
+      <div className="page-pad">
+        <div className="page-head-resp">
           <div>
             <div className="eyebrow">Operação</div>
             <h1 className="page-title" style={{ marginTop: 6 }}>Ordens de Serviço</h1>
@@ -36,7 +36,7 @@ export default async function OrdensPage() {
           <Link href="/os/nova" className="btn">+ Nova OS</Link>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(260px, 1fr))", gap: 14 }}>
+        <div className="kanban-resp">
           {COLS.map(c => (
             <div key={c.key} style={{ background: "var(--papel-alt)", border: "2px solid var(--preto)", borderRadius: 4, minHeight: 400, display: "flex", flexDirection: "column" }}>
               <div style={{ padding: "10px 14px", borderBottom: "2px solid var(--preto)", background: "white", display: "flex", justifyContent: "space-between" }}>

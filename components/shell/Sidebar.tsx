@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, FileText, Truck, Calendar, Wallet, Settings } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Truck, Calendar, Wallet, X } from "lucide-react";
 
 const items = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, section: "Operação" },
@@ -14,10 +14,12 @@ const items = [
 
 export default function Sidebar({
   counts,
-  user
+  user,
+  onClose
 }: {
   counts: { os: number; clientes: number; veiculos: number };
   user: { nome: string; papel: string };
+  onClose?: () => void;
 }) {
   const path = usePathname();
   const bySection: Record<string, typeof items> = {};
@@ -35,14 +37,19 @@ export default function Sidebar({
       background: "var(--preto)", color: "var(--papel)",
       borderRight: "3px solid var(--laranja)",
       display: "flex", flexDirection: "column",
-      position: "sticky", top: 0, height: "100vh", width: 240
+      height: "100%", width: "100%"
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "18px 20px", borderBottom: "1px solid #3A3D43" }}>
         <img src="/assets/logo-mark.svg" alt="" style={{ width: 40, height: 40 }} />
-        <div>
+        <div style={{ flex: 1 }}>
           <div style={{ fontFamily: "Oswald", fontWeight: 700, fontSize: 14, lineHeight: 1 }}>FABIO MECÂNICA</div>
           <div style={{ fontFamily: "Oswald", fontSize: 10, letterSpacing: "0.16em", color: "var(--laranja)", marginTop: 3 }}>DIESEL · CRM</div>
         </div>
+        {onClose && (
+          <button onClick={onClose} className="sidebar-close-btn" aria-label="Fechar menu">
+            <X size={20} />
+          </button>
+        )}
       </div>
 
       <nav style={{ flex: 1, overflowY: "auto", paddingBottom: 12 }}>
@@ -56,7 +63,7 @@ export default function Sidebar({
               const content = (
                 <div style={{
                   display: "flex", alignItems: "center", gap: 10,
-                  padding: "10px 20px",
+                  padding: "12px 20px",
                   fontFamily: "Oswald", fontWeight: 600, fontSize: 13,
                   textTransform: "uppercase", letterSpacing: "0.06em",
                   color: i.disabled ? "#55585F" : active ? "var(--laranja)" : "#B8B6B0",
@@ -64,7 +71,7 @@ export default function Sidebar({
                   borderLeft: `3px solid ${active ? "var(--laranja)" : "transparent"}`,
                   cursor: i.disabled ? "not-allowed" : "pointer"
                 }}>
-                  <Icon size={18} />
+                  <Icon size={20} />
                   <span>{i.label}</span>
                   {typeof n === "number" && (
                     <span style={{
@@ -78,7 +85,7 @@ export default function Sidebar({
               );
               return i.disabled
                 ? <div key={i.href}>{content}</div>
-                : <Link key={i.href} href={i.href as any} style={{ textDecoration: "none", border: 0 }}>{content}</Link>;
+                : <Link key={i.href} href={i.href as any} onClick={onClose} style={{ textDecoration: "none", border: 0 }}>{content}</Link>;
             })}
           </div>
         ))}

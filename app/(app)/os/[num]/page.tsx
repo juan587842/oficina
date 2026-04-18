@@ -32,7 +32,7 @@ export default async function OSDetailPage({ params }: { params: { num: string }
   return (
     <>
       <Topbar crumb={`OS / ${os.num}`} />
-      <div style={{ padding: 28, maxWidth: 1400 }}>
+      <div className="page-pad">
         <div style={{
           background: "var(--preto)", color: "var(--papel)",
           padding: "20px 24px", border: "2px solid var(--preto)", borderRadius: 4,
@@ -54,11 +54,11 @@ export default async function OSDetailPage({ params }: { params: { num: string }
           <span className={`pill ${os.status}`}>{statusLabel(os.status)}</span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 16 }}>
+        <div className="detail-grid-resp">
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <form action={setStatus} className="panel">
               <div className="panel-head"><span className="panel-title">Mudar status</span></div>
-              <div className="panel-body pad" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+              <div className="panel-body pad" style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
                 <select name="status" className="field" defaultValue={os.status} style={{ maxWidth: 240 }}>
                   {STATUSES.map(s => <option key={s} value={s}>{statusLabel(s)}</option>)}
                 </select>
@@ -68,7 +68,7 @@ export default async function OSDetailPage({ params }: { params: { num: string }
 
             <div className="panel">
               <div className="panel-head"><span className="panel-title">Itens — mão de obra e peças</span></div>
-              <table className="data">
+              <div className="table-wrap"><table className="data">
                 <thead><tr><th>Tipo</th><th>Descrição</th><th style={{ textAlign: "right" }}>Qtd</th><th>Un</th><th style={{ textAlign: "right" }}>V. unit</th><th style={{ textAlign: "right" }}>Total</th><th></th></tr></thead>
                 <tbody>
                   {(itens ?? []).map(i => (
@@ -92,8 +92,8 @@ export default async function OSDetailPage({ params }: { params: { num: string }
                     <td></td>
                   </tr>
                 </tbody>
-              </table>
-              <form action={addItem} className="panel-body pad" style={{ display: "grid", gridTemplateColumns: "120px 1fr 80px 80px 120px auto", gap: 10, alignItems: "end", borderTop: "2px solid var(--preto)" }}>
+              </table></div>
+              <form action={addItem} className="panel-body pad add-item-form" style={{ display: "grid", gridTemplateColumns: "120px 1fr 80px 80px 120px auto", gap: 10, alignItems: "end", borderTop: "2px solid var(--preto)" }}>
                 <div><label className="field-label">Tipo</label><select name="tipo" className="field"><option value="peca">Peça</option><option value="mao_obra">Mão de obra</option></select></div>
                 <div><label className="field-label">Descrição</label><input name="descricao" className="field" required /></div>
                 <div><label className="field-label">Qtd</label><input name="quantidade" type="number" step="0.01" defaultValue={1} className="field mono" /></div>

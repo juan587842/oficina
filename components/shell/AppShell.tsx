@@ -1,42 +1,41 @@
 "use client";
-import { useState, useEffect } from "react";
+import { SidebarProvider, useSidebar } from "@/lib/sidebar-context";
 import Sidebar from "./Sidebar";
-import Topbar from "./Topbar";
 
-export default function AppShell({
+function Shell({
   children,
   counts,
-  user,
-  crumb
+  user
 }: {
   children: React.ReactNode;
   counts: { os: number; clientes: number; veiculos: number };
   user: { nome: string; papel: string };
-  crumb?: string;
 }) {
-  const [open, setOpen] = useState(false);
-
-  // fecha drawer ao mudar de rota
-  useEffect(() => { setOpen(false); }, []);
+  const { open, close } = useSidebar();
 
   return (
     <div className="app-shell">
-      {/* Overlay mobile */}
-      {open && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setOpen(false)}
-        />
-      )}
-
+      {open && <div className="sidebar-overlay" onClick={close} />}
       <div className={`sidebar-wrap${open ? " open" : ""}`}>
-        <Sidebar counts={counts} user={user} onClose={() => setOpen(false)} />
+        <Sidebar counts={counts} user={user} onClose={close} />
       </div>
-
-      <div className="shell-main">
-        <Topbar crumb={crumb ?? "CRM"} onMenuClick={() => setOpen(o => !o)} />
-        <div className="page-content">{children}</div>
-      </div>
+      <div className="shell-main">{children}</div>
     </div>
+  );
+}
+
+export default function AppShell({
+  children,
+  counts,
+  user
+}: {
+  children: React.ReactNode;
+  counts: { os: number; clientes: number; veiculos: number };
+  user: { nome: string; papel: string };
+}) {
+  return (
+    <SidebarProvider>
+      <Shell counts={counts} user={user}>{children}</Shell>
+    </SidebarProvider>
   );
 }

@@ -30,8 +30,8 @@ export default async function DashboardPage() {
   return (
     <>
       <Topbar crumb="Dashboard" />
-      <div style={{ padding: 28, maxWidth: 1400 }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, marginBottom: 24, paddingBottom: 16, borderBottom: "2px solid var(--preto)" }}>
+      <div className="page-pad">
+        <div className="page-head-resp">
           <div>
             <div className="eyebrow">Visão geral</div>
             <h1 className="page-title" style={{ marginTop: 6 }}>Dashboard</h1>
@@ -42,7 +42,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 24 }}>
+        <div className="kpi-grid-resp">
           <div className="kpi"><div className="kpi-label">OS Abertas</div><div className="kpi-value">{abertas ?? 0}</div><div className="kpi-sub">aguardando início</div></div>
           <div className="kpi warn"><div className="kpi-label">Em Andamento</div><div className="kpi-value">{andamento ?? 0}</div><div className="kpi-sub">equipe trabalhando</div></div>
           <div className="kpi alt"><div className="kpi-label">Aguardando peça</div><div className="kpi-value">{aguardando ?? 0}</div><div className="kpi-sub">fornecedor</div></div>
@@ -56,7 +56,7 @@ export default async function DashboardPage() {
               Ver todas →
             </Link>
           </div>
-          <div>
+          <div className="table-wrap">
             <table className="data">
               <thead>
                 <tr><th>OS</th><th>Cliente</th><th>Placa</th><th>Problema</th><th>Status</th><th>Entrada</th><th style={{ textAlign: "right" }}>Valor</th></tr>
