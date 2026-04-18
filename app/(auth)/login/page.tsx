@@ -23,8 +23,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="login-wrap">
-      <div className="login-brand hazard-stripes">
+    <div className="login-wrap hazard-stripes">
+      <div className="login-brand">
         <div style={{ background: "var(--preto)", color: "var(--papel)", padding: "40px", border: "2px solid var(--preto)", maxWidth: 420, boxShadow: "var(--shadow-md)" }}>
           <div className="eyebrow" style={{ color: "var(--laranja)" }}>Fabio Mecânica Diesel</div>
           <h1 style={{ fontFamily: "Oswald", fontSize: 44, fontWeight: 700, textTransform: "uppercase", lineHeight: 1, margin: "12px 0" }}>

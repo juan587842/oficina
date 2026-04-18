@@ -405,9 +405,10 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   .form-grid-2 { grid-template-columns: 1fr !important; }
   .form-col-2 { grid-column: span 1 !important; }
 
-  /* Login: empilha verticalmente */
+  /* Login: tela inteira com faixas, form centralizado */
   .login-wrap { grid-template-columns: 1fr; }
   .login-brand { display: none; }
+  .login-form-side { padding: 40px 20px; }
 }
 
 /* ============================================================
