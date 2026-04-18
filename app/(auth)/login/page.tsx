@@ -23,8 +23,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-      <div className="hazard-stripes" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div className="login-wrap">
+      <div className="login-brand hazard-stripes">
         <div style={{ background: "var(--preto)", color: "var(--papel)", padding: "40px", border: "2px solid var(--preto)", maxWidth: 420, boxShadow: "var(--shadow-md)" }}>
           <div className="eyebrow" style={{ color: "var(--laranja)" }}>Fabio Mecânica Diesel</div>
           <h1 style={{ fontFamily: "Oswald", fontSize: 44, fontWeight: 700, textTransform: "uppercase", lineHeight: 1, margin: "12px 0" }}>
@@ -36,7 +36,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 40 }}>
+      <div className="login-form-side">
         <form onSubmit={entrar} className="panel" style={{ width: "100%", maxWidth: 420, padding: 0 }}>
           <div className="panel-head"><span className="panel-title">Entrar</span></div>
           <div className="panel-body pad" style={{ display: "flex", flexDirection: "column", gap: 14 }}>

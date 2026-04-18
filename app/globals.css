@@ -301,6 +301,24 @@ table.data tbody tr:last-child td { border-bottom: 0; }
 }
 .form-col-2 { grid-column: span 2; }
 
+/* Login layout */
+.login-wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.login-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-form-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
 /* Tabelas com scroll horizontal no mobile */
 .table-wrap {
   overflow-x: auto;
@@ -386,6 +404,10 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   /* Form 1 coluna */
   .form-grid-2 { grid-template-columns: 1fr !important; }
   .form-col-2 { grid-column: span 1 !important; }
+
+  /* Login: empilha verticalmente */
+  .login-wrap { grid-template-columns: 1fr; }
+  .login-brand { display: none; }
 }
 
 /* ============================================================
