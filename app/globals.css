@@ -301,6 +301,50 @@ table.data tbody tr:last-child td { border-bottom: 0; }
 }
 .form-col-2 { grid-column: span 2; }
 
+/* Clientes: tabela no desktop, cards no mobile */
+.clientes-table-view { display: block; }
+.clientes-cards-view { display: none; }
+
+.cliente-card {
+  display: block;
+  background: var(--papel-pure);
+  border: 2px solid var(--preto);
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: var(--shadow-hard);
+  text-decoration: none;
+  color: var(--preto);
+  transition: box-shadow 0.1s;
+}
+.cliente-card:hover { box-shadow: var(--shadow-hard-orange); }
+.cliente-card:active { transform: translate(2px, 2px); box-shadow: none; }
+
+.cliente-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.cliente-card-nome {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.3;
+}
+.cliente-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.cliente-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 13px;
+  color: var(--graxa);
+}
+
 /* Login layout */
 .login-wrap {
   min-height: 100vh;
@@ -409,6 +453,10 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   .login-wrap { grid-template-columns: 1fr; }
   .login-brand { display: none; }
   .login-form-side { padding: 40px 20px; }
+
+  /* Clientes: alterna para cards */
+  .clientes-table-view { display: none; }
+  .clientes-cards-view { display: flex; flex-direction: column; gap: 12px; }
 }
 
 /* ============================================================
