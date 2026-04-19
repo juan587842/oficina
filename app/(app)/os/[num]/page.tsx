@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { Printer } from "lucide-react";
 import Topbar from "@/components/shell/Topbar";
 import { createClient } from "@/lib/supabase/server";
 import { adicionarItem, removerItem, mudarStatusOS } from "@/lib/actions/os";
@@ -51,7 +53,12 @@ export default async function OSDetailPage({ params }: { params: { num: string }
               <span>Entrada: <strong style={{ color: "var(--papel)" }}>{fmtData(os.entrada)}</strong></span>
             </div>
           </div>
-          <span className={`pill ${os.status}`}>{statusLabel(os.status)}</span>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
+            <span className={`pill ${os.status}`}>{statusLabel(os.status)}</span>
+            <Link href={`/os/${os.num}/imprimir`} className="btn xs" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <Printer size={13} /> Imprimir / PDF
+            </Link>
+          </div>
         </div>
 
         <div className="detail-grid-resp">

@@ -229,6 +229,53 @@ html, body {
   .toast { width: 100%; font-size: 11px; }
 }
 
+/* ---------- Impressão da OS ---------- */
+.print-doc { background: #eee; min-height: 100vh; color: #000; }
+.print-sheet {
+  background: white; color: #000;
+  max-width: 780px; margin: 24px auto; padding: 40px 48px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  font-family: Inter, system-ui, sans-serif; font-size: 12px; line-height: 1.5;
+}
+.print-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 18px; border-bottom: 3px solid #000; margin-bottom: 22px;
+}
+.print-brand { font-family: Oswald, sans-serif; font-size: 26px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.print-brand-sub { font-size: 11px; color: #555; font-style: italic; margin-top: 2px; }
+.print-os-num { text-align: right; }
+.print-eyebrow { font-family: JetBrains Mono, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #555; }
+.print-num { font-family: JetBrains Mono, monospace; font-size: 20px; font-weight: 700; margin: 2px 0 4px; }
+.print-status { display: inline-block; background: #000; color: #fff; padding: 3px 10px; font-family: Oswald; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+.print-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 22px; }
+.print-block-title {
+  font-family: Oswald, sans-serif; font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding-bottom: 4px; border-bottom: 1px solid #000; margin-bottom: 8px;
+}
+.print-line { margin: 2px 0; font-size: 12px; }
+.print-problema { margin: 6px 0 18px; padding: 10px 12px; background: #f7f7f7; border-left: 3px solid #000; font-size: 12px; }
+.print-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 11px; }
+.print-table thead th { background: #000; color: #fff; text-align: left; padding: 6px 8px; font-family: Oswald; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.print-table td { padding: 6px 8px; border-bottom: 1px solid #ddd; }
+.print-table td.num { text-align: right; font-family: JetBrains Mono, monospace; }
+.print-total-row { display: flex; justify-content: space-between; align-items: flex-end; margin: 8px 0 24px; gap: 20px; }
+.print-total-box { text-align: right; min-width: 220px; background: #000; color: #fff; padding: 10px 16px; }
+.print-total-label { font-family: Oswald; text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; }
+.print-total-value { font-family: JetBrains Mono, monospace; font-size: 22px; font-weight: 700; }
+.print-assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+.print-ass-line { border-top: 1px solid #000; height: 40px; }
+.print-ass-label { text-align: center; font-size: 11px; color: #555; margin-top: 4px; }
+.print-footer { margin-top: 32px; padding-top: 10px; border-top: 1px solid #ccc; text-align: center; font-size: 10px; color: #777; font-family: JetBrains Mono, monospace; text-transform: uppercase; letter-spacing: 0.08em; }
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { background: white !important; }
+  .no-print, .sidebar-panel, aside, .topbar { display: none !important; }
+  .print-doc { background: white; }
+  .print-sheet { box-shadow: none; margin: 0; max-width: 100%; padding: 0; }
+}
+
 /* ============ FIELDS ============ */
 .field {
   display: block;
