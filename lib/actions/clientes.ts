@@ -35,6 +35,26 @@ export async function atualizarCliente(id: string, _prev: unknown, fd: FormData)
   redirect(`/clientes/${id}?ok=atualizado`);
 }
 
+/** Versão sem redirect — usada no modal da Nova OS */
+export async function criarClienteRapido(
+  _prev: unknown,
+  fd: FormData
+): Promise<{ erro?: string; cliente?: { id: string; nome: string } }> {
+  const parsed = clienteSchema.safeParse(
+    Object.fromEntries(
+      Array.from(fd.entries()).map(([k, v]) => [k, v === "" ? null : String(v)])
+    )
+  );
+  if (!parsed.success) return { erro: parsed.error.issues[0]?.message ?? "Dados inválidos" };
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { erro: "Não autorizado." };
+  const { error } = await supabase.from("clientes").insert(parsed.data);
+  if (error) return { erro: error.message };
+  revalidatePath("/clientes");
+  return { cliente: { id: parsed.data.id, nome: parsed.data.nome } };
+}
+
 export async function excluirCliente(id: string): Promise<void> {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
