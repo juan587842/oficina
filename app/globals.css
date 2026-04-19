@@ -26,6 +26,41 @@
   --shadow-md: 4px 4px 0 0 var(--preto);
 }
 
+/* ============ DARK MODE ============ */
+[data-theme="dark"] {
+  --preto: #E8E4DC;
+  --aco: #C2BEB6;
+  --graxa: #7A7D86;
+  --concreto: #3A3D44;
+  --papel: #111316;
+  --papel-alt: #1A1D22;
+  --papel-pure: #16191E;
+  --border-soft: #2A2D36;
+  --fg2: #A8A5A0;
+  --fg3: var(--graxa);
+  --shadow-sm: 2px 2px 0 0 var(--preto);
+  --shadow-md: 4px 4px 0 0 var(--preto);
+}
+
+[data-theme="dark"] .field {
+  background: var(--papel-alt);
+  color: var(--preto);
+  border-color: var(--concreto);
+}
+[data-theme="dark"] .pill {
+  background: var(--papel-alt);
+  border-color: var(--concreto);
+}
+[data-theme="dark"] .pill.aberta  { background: #2A1A0E; color: #FF8F4A; border-color: #5A2E0E; }
+[data-theme="dark"] .pill.andamento { background: #1E1A00; color: #FFD040; border-color: #4A4000; }
+[data-theme="dark"] .pill.aguardando { background: #1A1D22; color: #A8A5A0; border-color: #3A3D44; }
+[data-theme="dark"] .pill.concluida { background: #0E2010; color: #5ED656; border-color: #1A4A1A; }
+[data-theme="dark"] .pill.faturada  { background: #0E1A28; color: #4AA8FF; border-color: #1A3A5A; }
+[data-theme="dark"] .pill.cancelada { background: #2A0E0E; color: #FF4A5A; border-color: #5A1A1A; }
+[data-theme="dark"] .kpi { background: var(--papel-pure); }
+[data-theme="dark"] .btn.secondary { background: var(--preto); color: var(--papel); }
+[data-theme="dark"] .cliente-card { background: var(--papel-pure); border-color: var(--concreto); }
+
 html, body {
   margin: 0;
   padding: 0;

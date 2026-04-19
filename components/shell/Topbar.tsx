@@ -3,6 +3,7 @@ import { Bell, Menu } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useSidebar } from "@/lib/sidebar-context";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Topbar({ crumb }: { crumb: string }) {
   const router = useRouter();
@@ -33,13 +34,7 @@ export default function Topbar({ crumb }: { crumb: string }) {
       </div>
 
       <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-        <button aria-label="Notificações" style={{
-          width: 36, height: 36, borderRadius: 2,
-          background: "transparent", border: "2px solid var(--preto)",
-          display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer"
-        }}>
-          <Bell size={16} />
-        </button>
+        <ThemeToggle />
         <button className="btn xs secondary" onClick={sair}>Sair</button>
       </div>
     </div>
