@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Topbar from "@/components/shell/Topbar";
 import VeiculoForm from "@/components/veiculos/VeiculoForm";
+import ConfirmDelete from "@/components/ui/ConfirmDelete";
 import { createClient } from "@/lib/supabase/server";
 import { atualizarVeiculo, excluirVeiculo } from "@/lib/actions/veiculos";
 
@@ -27,9 +28,13 @@ export default async function VeiculoDetailPage({ params }: { params: { placa: s
             <h1 className="page-title" style={{ margin: "6px 0" }}>{veiculo.marca} {veiculo.modelo}</h1>
             <span className="placa">{veiculo.placa}</span>
           </div>
-          <form action={del}>
-            <button type="submit" className="btn xs secondary">Excluir</button>
-          </form>
+          <ConfirmDelete
+            action={del}
+            label="Excluir veículo"
+            title="Excluir veículo"
+            description={`Esta ação remove o veículo ${veiculo.placa} do sistema. Não pode ser desfeita.`}
+            confirmText={veiculo.placa}
+          />
         </div>
         <VeiculoForm action={update} clientes={clientes ?? []} inicial={veiculo} editar />
       </div>

@@ -161,6 +161,39 @@ html, body {
 .btn.ghost:hover { background: var(--preto); color: var(--papel); }
 .btn.sm { padding: 8px 14px; font-size: 12px; }
 .btn.xs { padding: 6px 10px; font-size: 11px; letter-spacing: 0.08em; }
+.btn.danger { background: var(--vermelho); color: var(--papel); }
+.btn.danger:hover { background: #a80f10; }
+.btn.danger:disabled { background: var(--concreto); color: var(--graxa); cursor: not-allowed; }
+
+.confirm-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: confirm-fade 120ms ease-out;
+}
+.confirm-modal {
+  background: var(--papel); color: var(--preto);
+  border: 2px solid var(--preto); border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  width: 100%; max-width: 420px;
+  padding: 22px;
+}
+[data-theme="dark"] .confirm-modal { background: var(--bg-panel); color: var(--papel); border-color: var(--laranja); }
+.confirm-title {
+  font-family: Oswald, sans-serif; font-size: 20px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  padding-bottom: 10px; margin-bottom: 14px;
+  border-bottom: 2px solid var(--preto);
+}
+[data-theme="dark"] .confirm-title { border-color: var(--laranja); }
+.confirm-desc { font-size: 13px; color: var(--graxa); margin: 0 0 10px; line-height: 1.5; }
+.confirm-actions {
+  display: flex; gap: 8px; justify-content: flex-end;
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+@keyframes confirm-fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* ============ FIELDS ============ */
 .field {

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Topbar from "@/components/shell/Topbar";
 import ClienteForm from "@/components/clientes/ClienteForm";
+import ConfirmDelete from "@/components/ui/ConfirmDelete";
 import { createClient } from "@/lib/supabase/server";
 import { atualizarCliente, excluirCliente } from "@/lib/actions/clientes";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
@@ -33,9 +34,13 @@ export default async function ClienteDetailPage({ params }: { params: { id: stri
               {cliente.tipo === "frota" ? "Frota" : "Autônomo"} · {cliente.cidade ?? "—"} · {cliente.telefone ?? "—"}
             </div>
           </div>
-          <form action={del}>
-            <button type="submit" className="btn xs secondary">Excluir cliente</button>
-          </form>
+          <ConfirmDelete
+            action={del}
+            label="Excluir cliente"
+            title="Excluir cliente"
+            description={`Esta ação apaga o cadastro do cliente ${cliente.nome} e pode afetar veículos/OS vinculados. Não pode ser desfeita.`}
+            confirmText={cliente.id}
+          />
         </div>
 
         <div className="detail-grid-resp">
