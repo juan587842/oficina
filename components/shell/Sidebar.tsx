@@ -8,8 +8,8 @@ const items = [
   { href: "/os", label: "Ordens de Serviço", icon: FileText, section: "Operação" },
   { href: "/clientes", label: "Clientes", icon: Users, section: "Cadastros" },
   { href: "/veiculos", label: "Veículos", icon: Truck, section: "Cadastros" },
-  { href: "/agenda", label: "Agenda", icon: Calendar, section: "Planejamento", disabled: true },
-  { href: "/financeiro", label: "Financeiro", icon: Wallet, section: "Planejamento", disabled: true }
+  { href: "/agenda", label: "Agenda", icon: Calendar, section: "Planejamento" },
+  { href: "/financeiro", label: "Financeiro", icon: Wallet, section: "Planejamento" }
 ];
 
 export default function Sidebar({
@@ -66,10 +66,10 @@ export default function Sidebar({
                   padding: "12px 20px",
                   fontFamily: "Oswald", fontWeight: 600, fontSize: 13,
                   textTransform: "uppercase", letterSpacing: "0.06em",
-                  color: i.disabled ? "#55585F" : active ? "var(--laranja)" : "#B8B6B0",
+                  color: active ? "var(--laranja)" : "#B8B6B0",
                   background: active ? "#1A1B1F" : "transparent",
                   borderLeft: `3px solid ${active ? "var(--laranja)" : "transparent"}`,
-                  cursor: i.disabled ? "not-allowed" : "pointer"
+                  cursor: "pointer"
                 }}>
                   <Icon size={20} />
                   <span>{i.label}</span>
@@ -83,9 +83,7 @@ export default function Sidebar({
                   )}
                 </div>
               );
-              return i.disabled
-                ? <div key={i.href}>{content}</div>
-                : <Link key={i.href} href={i.href as any} onClick={onClose} style={{ textDecoration: "none", border: 0 }}>{content}</Link>;
+              return <Link key={i.href} href={i.href as any} onClick={onClose} style={{ textDecoration: "none", border: 0 }}>{content}</Link>;
             })}
           </div>
         ))}

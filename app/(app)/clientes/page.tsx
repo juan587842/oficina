@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/shell/Topbar";
+import BuscaClientes from "@/components/clientes/BuscaClientes";
+import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -28,10 +30,15 @@ export default async function ClientesPage({ searchParams }: { searchParams: { t
           <Link href="/clientes/novo" className="btn">+ Novo cliente</Link>
         </div>
 
-        <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap", alignItems: "center" }}>
           <Link href="/clientes" className={`chip ${!searchParams.tipo ? "active" : ""}`}>Todos</Link>
           <Link href="/clientes?tipo=frota" className={`chip ${searchParams.tipo === "frota" ? "active" : ""}`}>Frotas</Link>
           <Link href="/clientes?tipo=autonomo" className={`chip ${searchParams.tipo === "autonomo" ? "active" : ""}`}>Autônomos</Link>
+          <div style={{ marginLeft: "auto" }}>
+            <Suspense fallback={null}>
+              <BuscaClientes />
+            </Suspense>
+          </div>
         </div>
 
         {/* Tabela — desktop */}

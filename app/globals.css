@@ -341,6 +341,44 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   padding: 18px;
 }
 
+/* ============ AGENDA ============ */
+.agenda-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.agenda-dia {
+  border: 2px solid var(--preto);
+  border-radius: 4px;
+  background: var(--papel-pure);
+  overflow: hidden;
+  min-height: 120px;
+}
+.agenda-dia.hoje { border-color: var(--laranja); box-shadow: var(--shadow-md); }
+.agenda-dia.fds { background: var(--papel); opacity: 0.8; }
+.agenda-dia-header {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px;
+  background: var(--papel-alt);
+  border-bottom: 2px solid var(--preto);
+}
+.agenda-dia.hoje .agenda-dia-header { background: var(--laranja); border-color: var(--laranja); color: var(--preto); }
+.agenda-dia-nome { font-family: "Oswald", sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.agenda-dia-data { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--graxa); }
+.agenda-dia.hoje .agenda-dia-data { color: var(--preto); }
+.agenda-count {
+  margin-left: auto; background: var(--laranja); color: var(--preto);
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 700;
+  padding: 1px 6px; border-radius: 999px;
+}
+.agenda-dia.hoje .agenda-count { background: var(--preto); color: var(--laranja); }
+.agenda-dia-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 8px; }
+.agenda-os-item {
+  display: block; padding: 8px; border: 1px solid var(--border-soft);
+  border-radius: 2px; background: var(--papel); text-decoration: none; color: var(--preto);
+}
+.agenda-os-item:hover { border-color: var(--laranja); }
+
 /* Grid de formulários — 2 colunas responsivo */
 .form-grid-2 {
   display: grid;
@@ -505,6 +543,10 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   /* Clientes: alterna para cards */
   .clientes-table-view { display: none; }
   .clientes-cards-view { display: flex; flex-direction: column; gap: 12px; }
+
+  /* Agenda: 3 colunas no tablet */
+  .agenda-semana { grid-template-columns: repeat(3, 1fr); }
+  .agenda-dia.fds { display: none; }
 }
 
 /* ============================================================
@@ -514,9 +556,9 @@ table.data tbody tr:last-child td { border-bottom: 0; }
   .kpi-grid-resp { grid-template-columns: 1fr; }
   .kpi-value { font-size: 28px; }
   .page-title { font-size: 24px; }
-  .add-item-form {
-    grid-template-columns: 1fr 1fr !important;
-  }
+  .add-item-form { grid-template-columns: 1fr 1fr !important; }
+  .agenda-semana { grid-template-columns: 1fr; }
+  .agenda-dia.fds { display: block; }
 }
 
 @media (max-width: 768px) {
