@@ -61,6 +61,14 @@
 [data-theme="dark"] .btn.secondary { background: var(--preto); color: var(--papel); }
 [data-theme="dark"] .cliente-card { background: var(--papel-pure); border-color: var(--concreto); }
 
+/* Sidebar sempre escura, independente do tema */
+[data-theme="dark"] .sidebar-panel,
+[data-theme="dark"] .sidebar-panel * {
+  --preto: #0E0E10;
+  --papel: #F5F2EC;
+  --laranja: #FF6A1A;
+}
+
 html, body {
   margin: 0;
   padding: 0;

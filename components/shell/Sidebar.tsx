@@ -33,7 +33,7 @@ export default function Sidebar({
   }
 
   return (
-    <aside style={{
+    <aside className="sidebar-panel" style={{
       background: "var(--preto)", color: "var(--papel)",
       borderRight: "3px solid var(--laranja)",
       display: "flex", flexDirection: "column",
