@@ -78,7 +78,7 @@ export default async function OSDetailPage({ params }: { params: { num: string }
               </Link>
               <BotaoWhatsApp
                 num={os.num}
-                problema={os.problema}
+                problema={os.problema ?? ""}
                 placa={os.placa}
                 clienteNome={cliente?.nome ?? os.cliente_id}
                 telefone={cliente?.telefone}
