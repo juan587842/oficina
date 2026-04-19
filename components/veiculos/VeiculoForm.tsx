@@ -1,9 +1,14 @@
 "use client";
 import { useFormState, useFormStatus } from "react-dom";
+import SpinGear from "@/components/ui/SpinGear";
 
 function SubmitBtn({ label }: { label: string }) {
   const { pending } = useFormStatus();
-  return <button className="btn" type="submit" disabled={pending}>{pending ? "Salvando…" : label}</button>;
+  return (
+    <button className="btn" type="submit" disabled={pending}>
+      {pending ? <><SpinGear size={15} /> Salvando…</> : label}
+    </button>
+  );
 }
 
 export default function VeiculoForm({

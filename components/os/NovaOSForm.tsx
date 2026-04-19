@@ -1,10 +1,15 @@
 "use client";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import SpinGear from "@/components/ui/SpinGear";
 
 function SubmitBtn() {
   const { pending } = useFormStatus();
-  return <button className="btn" type="submit" disabled={pending}>{pending ? "Abrindo…" : "Abrir OS"}</button>;
+  return (
+    <button className="btn" type="submit" disabled={pending}>
+      {pending ? <><SpinGear size={15} /> Abrindo…</> : "Abrir OS"}
+    </button>
+  );
 }
 
 export default function NovaOSForm({

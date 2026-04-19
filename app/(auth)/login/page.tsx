@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import SpinGear from "@/components/ui/SpinGear";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function LoginPage() {
             </div>
             {erro && <div style={{ color: "var(--vermelho)", fontSize: 13 }}>{erro}</div>}
             <button className="btn" type="submit" disabled={loading}>
-              {loading ? "Entrando…" : "Entrar"}
+              {loading ? <><SpinGear size={15} /> Entrando…</> : "Entrar"}
             </button>
           </div>
         </form>

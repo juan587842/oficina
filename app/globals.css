@@ -26,6 +26,13 @@
   --shadow-md: 4px 4px 0 0 var(--preto);
 }
 
+/* ============ LOADING / SPINNER ============ */
+@keyframes spin-gear {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-gear { animation: spin-gear 0.7s linear infinite; display: inline-flex; }
+
 /* ============ DARK MODE ============ */
 [data-theme="dark"] {
   --preto: #E8E4DC;
