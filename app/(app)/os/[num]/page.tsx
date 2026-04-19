@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Printer } from "lucide-react";
 import Topbar from "@/components/shell/Topbar";
+import BotaoWhatsApp from "@/components/os/BotaoWhatsApp";
 import { createClient } from "@/lib/supabase/server";
 import { adicionarItem, removerItem, mudarStatusOS } from "@/lib/actions/os";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
@@ -53,11 +54,22 @@ export default async function OSDetailPage({ params }: { params: { num: string }
               <span>Entrada: <strong style={{ color: "var(--papel)" }}>{fmtData(os.entrada)}</strong></span>
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
             <span className={`pill ${os.status}`}>{statusLabel(os.status)}</span>
-            <Link href={`/os/${os.num}/imprimir`} className="btn xs" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-              <Printer size={13} /> Imprimir / PDF
-            </Link>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
+              <Link href={`/os/${os.num}/imprimir`} className="btn xs" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <Printer size={13} /> Imprimir / PDF
+              </Link>
+              <BotaoWhatsApp
+                num={os.num}
+                problema={os.problema}
+                placa={os.placa}
+                clienteNome={cliente?.nome ?? os.cliente_id}
+                telefone={cliente?.telefone}
+                valorTotal={Number(os.valor_total ?? 0)}
+                itens={(itens ?? []).map((i: any) => ({ tipo: i.tipo, descricao: i.descricao, quantidade: i.quantidade, valor_total: i.valor_total }))}
+              />
+            </div>
           </div>
         </div>
 
