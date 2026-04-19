@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Topbar from "@/components/shell/Topbar";
+import BuscaOS from "@/components/os/BuscaOS";
 import { createClient } from "@/lib/supabase/server";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
 
@@ -12,13 +13,19 @@ const COLS = [
   { key: "concluida", label: "Concluídas" }
 ];
 
-export default async function OrdensPage() {
+export default async function OrdensPage({ searchParams }: { searchParams: { q?: string } }) {
   const supabase = createClient();
-  const { data: ordens } = await supabase
+  const q = (searchParams.q ?? "").trim();
+  let query = supabase
     .from("ordens_servico")
     .select("num,status,problema,entrada,previsao,valor_total,urgente,placa,cliente_id,clientes(nome)")
     .in("status", ["aberta","andamento","aguardando","concluida"])
     .order("entrada", { ascending: false });
+  if (q) {
+    const like = `%${q}%`;
+    query = query.or(`num.ilike.${like},placa.ilike.${like},cliente_id.ilike.${like},problema.ilike.${like}`);
+  }
+  const { data: ordens } = await query;
 
   const porStatus: Record<string, any[]> = { aberta: [], andamento: [], aguardando: [], concluida: [] };
   (ordens ?? []).forEach((o: any) => (porStatus[o.status] ||= []).push(o));
@@ -34,6 +41,15 @@ export default async function OrdensPage() {
             <p style={{ margin: "6px 0 0", fontSize: 14, color: "var(--graxa)" }}>Fluxo da oficina em tempo real.</p>
           </div>
           <Link href="/os/nova" className="btn">+ Nova OS</Link>
+        </div>
+
+        <div style={{ margin: "14px 0 18px" }}>
+          <BuscaOS />
+          {q && (
+            <div className="mono" style={{ fontSize: 11, color: "var(--graxa)", marginTop: 8, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              {(ordens?.length ?? 0)} resultado(s) para “{q}”
+            </div>
+          )}
         </div>
 
         <div className="kanban-resp">
