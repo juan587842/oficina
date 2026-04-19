@@ -18,7 +18,7 @@ export async function criarVeiculo(_prev: any, fd: FormData) {
   if (error) return { erro: error.message };
   revalidatePath("/veiculos");
   revalidatePath(`/clientes/${parsed.data.cliente_id}`);
-  redirect("/veiculos");
+  redirect("/veiculos?ok=criado");
 }
 
 export async function atualizarVeiculo(placa: string, _prev: any, fd: FormData) {
@@ -29,7 +29,7 @@ export async function atualizarVeiculo(placa: string, _prev: any, fd: FormData) 
   if (error) return { erro: error.message };
   revalidatePath(`/veiculos/${placa}`);
   revalidatePath("/veiculos");
-  return { ok: true };
+  redirect(`/veiculos/${placa}?ok=atualizado`);
 }
 
 export async function excluirVeiculo(placa: string): Promise<void> {
@@ -37,5 +37,5 @@ export async function excluirVeiculo(placa: string): Promise<void> {
   const { error } = await supabase.from("veiculos").delete().eq("placa", placa);
   if (error) throw new Error(error.message);
   revalidatePath("/veiculos");
-  redirect("/veiculos");
+  redirect("/veiculos?ok=excluido");
 }

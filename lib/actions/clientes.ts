@@ -17,7 +17,7 @@ export async function criarCliente(_prev: any, fd: FormData) {
   const { error } = await supabase.from("clientes").insert(parsed.data);
   if (error) return { erro: error.message };
   revalidatePath("/clientes");
-  redirect(`/clientes/${parsed.data.id}`);
+  redirect(`/clientes/${parsed.data.id}?ok=criado`);
 }
 
 export async function atualizarCliente(id: string, _prev: any, fd: FormData) {
@@ -28,7 +28,7 @@ export async function atualizarCliente(id: string, _prev: any, fd: FormData) {
   if (error) return { erro: error.message };
   revalidatePath(`/clientes/${id}`);
   revalidatePath("/clientes");
-  return { ok: true };
+  redirect(`/clientes/${id}?ok=atualizado`);
 }
 
 export async function excluirCliente(id: string): Promise<void> {
@@ -36,5 +36,5 @@ export async function excluirCliente(id: string): Promise<void> {
   const { error } = await supabase.from("clientes").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/clientes");
-  redirect("/clientes");
+  redirect("/clientes?ok=excluido");
 }

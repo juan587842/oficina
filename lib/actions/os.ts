@@ -26,7 +26,7 @@ export async function criarOS(_prev: any, fd: FormData) {
   if (error) return { erro: error.message };
 
   revalidatePath("/os");
-  redirect(`/os/${numRow}`);
+  redirect(`/os/${numRow}?ok=criado`);
 }
 
 export async function mudarStatusOS(num: string, status: string) {
