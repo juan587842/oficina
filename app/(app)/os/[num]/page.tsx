@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Printer } from "lucide-react";
 import Topbar from "@/components/shell/Topbar";
 import BotaoWhatsApp from "@/components/os/BotaoWhatsApp";
+import UploadFotos from "@/components/os/UploadFotos";
 import { createClient } from "@/lib/supabase/server";
 import { adicionarItem, removerItem, mudarStatusOS } from "@/lib/actions/os";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
@@ -13,12 +14,18 @@ const STATUSES = ["aberta","andamento","aguardando","concluida","faturada","canc
 
 export default async function OSDetailPage({ params }: { params: { num: string } }) {
   const supabase = createClient();
-  const [{ data: os }, { data: itens }, { data: timeline }] = await Promise.all([
+  const [{ data: os }, { data: itens }, { data: timeline }, { data: fotosRaw }] = await Promise.all([
     supabase.from("ordens_servico").select("*,clientes(nome,telefone),veiculos(marca,modelo,ano)").eq("num", params.num).maybeSingle(),
     supabase.from("os_itens").select("*").eq("os_num", params.num).order("ordem"),
-    supabase.from("os_timeline").select("*").eq("os_num", params.num).order("quando", { ascending: false })
+    supabase.from("os_timeline").select("*").eq("os_num", params.num).order("quando", { ascending: false }),
+    supabase.from("os_fotos").select("id,path,descricao").eq("os_num", params.num).order("created_at", { ascending: false })
   ]);
   if (!os) notFound();
+
+  const fotos = await Promise.all((fotosRaw ?? []).map(async f => {
+    const { data } = await supabase.storage.from("os-fotos").createSignedUrl(f.path, 3600);
+    return { id: f.id, path: f.path, descricao: f.descricao, signedUrl: data?.signedUrl ?? "" };
+  }));
 
   async function addItem(fd: FormData) {
     "use server";
@@ -121,6 +128,8 @@ export default async function OSDetailPage({ params }: { params: { num: string }
                 <button type="submit" className="btn sm">+ Item</button>
               </form>
             </div>
+
+            <UploadFotos osNum={os.num} fotos={fotos} />
           </div>
 
           <div className="panel">
