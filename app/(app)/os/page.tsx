@@ -3,6 +3,12 @@ import Topbar from "@/components/shell/Topbar";
 import BuscaOS from "@/components/os/BuscaOS";
 import { createClient } from "@/lib/supabase/server";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
+import type { Database } from "@/types/database";
+
+type OSRow = Database["public"]["Tables"]["ordens_servico"]["Row"];
+type OSKanban = Pick<OSRow, "num" | "status" | "problema" | "entrada" | "previsao" | "valor_total" | "urgente" | "placa" | "cliente_id"> & {
+  clientes: { nome: string } | null;
+};
 
 export const dynamic = "force-dynamic";
 
@@ -25,10 +31,11 @@ export default async function OrdensPage({ searchParams }: { searchParams: { q?:
     const like = `%${q}%`;
     query = query.or(`num.ilike.${like},placa.ilike.${like},cliente_id.ilike.${like},problema.ilike.${like}`);
   }
-  const { data: ordens } = await query;
+  const { data: ordensRaw } = await query;
+  const ordens = (ordensRaw ?? []) as OSKanban[];
 
-  const porStatus: Record<string, any[]> = { aberta: [], andamento: [], aguardando: [], concluida: [] };
-  (ordens ?? []).forEach((o: any) => (porStatus[o.status] ||= []).push(o));
+  const porStatus: Record<string, OSKanban[]> = { aberta: [], andamento: [], aguardando: [], concluida: [] };
+  ordens.forEach((o) => (porStatus[o.status] ??= []).push(o));
 
   return (
     <>
@@ -60,7 +67,7 @@ export default async function OrdensPage({ searchParams }: { searchParams: { q?:
                 <span className="mono" style={{ fontSize: 11, color: "var(--graxa)" }}>{porStatus[c.key]?.length ?? 0}</span>
               </div>
               <div style={{ padding: 10, display: "flex", flexDirection: "column", gap: 10 }}>
-                {(porStatus[c.key] ?? []).map((o: any) => (
+                {(porStatus[c.key] ?? []).map((o) => (
                   <Link key={o.num} href={`/os/${o.num}`} style={{
                     background: "white", border: "2px solid var(--preto)", borderRadius: 3,
                     boxShadow: "var(--shadow-sm)", padding: 12, textDecoration: "none", color: "var(--preto)",

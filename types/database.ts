@@ -145,6 +145,48 @@ export type Database = {
           }
         ]
       }
+      os_fotos: {
+        Row: {
+          autor_id: string | null
+          created_at: string
+          descricao: string | null
+          id: string
+          os_num: string
+          path: string
+        }
+        Insert: {
+          autor_id?: string | null
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          os_num: string
+          path: string
+        }
+        Update: {
+          autor_id?: string | null
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          os_num?: string
+          path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "os_fotos_autor_id_fkey"
+            columns: ["autor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "os_fotos_os_num_fkey"
+            columns: ["os_num"]
+            isOneToOne: false
+            referencedRelation: "ordens_servico"
+            referencedColumns: ["num"]
+          }
+        ]
+      }
       os_itens: {
         Row: {
           created_at: string

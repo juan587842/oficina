@@ -1,15 +1,23 @@
 import Link from "next/link";
 import Topbar from "@/components/shell/Topbar";
 import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/types/database";
+
+type VeiculoRow = Database["public"]["Tables"]["veiculos"]["Row"];
+type VeiculoComCliente = VeiculoRow & {
+  clientes: { nome: string } | null;
+};
 
 export const dynamic = "force-dynamic";
 
 export default async function VeiculosPage() {
   const supabase = createClient();
-  const { data: veiculos } = await supabase
+  const { data: veiculosRaw } = await supabase
     .from("veiculos")
     .select("placa,marca,modelo,ano,km_atual,cliente_id,clientes(nome)")
-    .order("placa");
+    .order("placa")
+    .limit(500);
+  const veiculos = (veiculosRaw ?? []) as VeiculoComCliente[];
 
   return (
     <>
@@ -25,7 +33,7 @@ export default async function VeiculosPage() {
         </div>
 
         <div className="veiculos-grid-resp">
-          {(veiculos ?? []).map((v: any) => (
+          {veiculos.map((v) => (
             <Link key={v.placa} href={`/veiculos/${v.placa}`} style={{
               background: "white", border: "2px solid var(--preto)", borderRadius: 4,
               padding: 16, boxShadow: "var(--shadow-sm)", textDecoration: "none", color: "var(--preto)"
@@ -49,7 +57,7 @@ export default async function VeiculosPage() {
               </div>
             </Link>
           ))}
-          {(!veiculos || veiculos.length === 0) && (
+          {veiculos.length === 0 && (
             <div style={{ gridColumn: "1 / -1", padding: 40, textAlign: "center", color: "var(--graxa)" }}>
               Nenhum veículo. <Link href="/veiculos/novo" style={{ color: "var(--laranja)" }}>Cadastrar →</Link>
             </div>

@@ -3,7 +3,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-export async function criarOS(_prev: any, fd: FormData) {
+export async function criarOS(_prev: unknown, fd: FormData) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { erro: "Não autorizado." };
+
   const cliente_id = String(fd.get("cliente_id") ?? "");
   const placa = String(fd.get("placa") ?? "");
   const problema = String(fd.get("problema") ?? "");
@@ -11,8 +15,6 @@ export async function criarOS(_prev: any, fd: FormData) {
   const urgente = String(fd.get("urgente") ?? "false") === "true";
 
   if (!cliente_id || !placa || !problema) return { erro: "Preencha cliente, veículo e problema." };
-
-  const supabase = createClient();
   const { data: numRow, error: errNum } = await supabase.rpc("gerar_numero_os");
   if (errNum || !numRow) return { erro: errNum?.message ?? "Falha ao gerar número da OS" };
 
@@ -31,6 +33,8 @@ export async function criarOS(_prev: any, fd: FormData) {
 
 export async function mudarStatusOS(num: string, status: string) {
   const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { erro: "Não autorizado." };
   const patch: { status: string; conclusao?: string } = { status };
   if (status === "concluida") patch.conclusao = new Date().toISOString();
   const { error } = await supabase.from("ordens_servico").update(patch).eq("num", num);
@@ -42,6 +46,8 @@ export async function mudarStatusOS(num: string, status: string) {
 
 export async function adicionarItem(num: string, fd: FormData) {
   const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { erro: "Não autorizado." };
   const { error } = await supabase.from("os_itens").insert({
     os_num: num,
     tipo: String(fd.get("tipo") ?? "peca"),
@@ -57,6 +63,8 @@ export async function adicionarItem(num: string, fd: FormData) {
 
 export async function removerItem(num: string, id: string) {
   const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { erro: "Não autorizado." };
   const { error } = await supabase.from("os_itens").delete().eq("id", id);
   if (error) return { erro: error.message };
   revalidatePath(`/os/${num}`);

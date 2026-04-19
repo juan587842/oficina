@@ -7,6 +7,14 @@ import UploadFotos from "@/components/os/UploadFotos";
 import { createClient } from "@/lib/supabase/server";
 import { adicionarItem, removerItem, mudarStatusOS } from "@/lib/actions/os";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
+import type { Database } from "@/types/database";
+
+type OSRow = Database["public"]["Tables"]["ordens_servico"]["Row"];
+type OSComJoins = OSRow & {
+  clientes: { nome: string; telefone: string | null } | null;
+  veiculos: { marca: string; modelo: string; ano: number | null } | null;
+};
+type ItemRow = Database["public"]["Tables"]["os_itens"]["Row"];
 
 export const dynamic = "force-dynamic";
 
@@ -14,13 +22,14 @@ const STATUSES = ["aberta","andamento","aguardando","concluida","faturada","canc
 
 export default async function OSDetailPage({ params }: { params: { num: string } }) {
   const supabase = createClient();
-  const [{ data: os }, { data: itens }, { data: timeline }, { data: fotosRaw }] = await Promise.all([
+  const [{ data: osRaw }, { data: itens }, { data: timeline }, { data: fotosRaw }] = await Promise.all([
     supabase.from("ordens_servico").select("*,clientes(nome,telefone),veiculos(marca,modelo,ano)").eq("num", params.num).maybeSingle(),
     supabase.from("os_itens").select("*").eq("os_num", params.num).order("ordem"),
     supabase.from("os_timeline").select("*").eq("os_num", params.num).order("quando", { ascending: false }),
     supabase.from("os_fotos").select("id,path,descricao").eq("os_num", params.num).order("created_at", { ascending: false })
   ]);
-  if (!os) notFound();
+  if (!osRaw) notFound();
+  const os = osRaw as OSComJoins;
 
   const fotos = await Promise.all((fotosRaw ?? []).map(async f => {
     const { data } = await supabase.storage.from("os-fotos").createSignedUrl(f.path, 3600);
@@ -36,8 +45,8 @@ export default async function OSDetailPage({ params }: { params: { num: string }
     await mudarStatusOS(params.num, String(fd.get("status") ?? "aberta"));
   }
 
-  const cliente = (os as any).clientes;
-  const veiculo = (os as any).veiculos;
+  const cliente = os.clientes;
+  const veiculo = os.veiculos;
 
   return (
     <>
@@ -74,7 +83,7 @@ export default async function OSDetailPage({ params }: { params: { num: string }
                 clienteNome={cliente?.nome ?? os.cliente_id}
                 telefone={cliente?.telefone}
                 valorTotal={Number(os.valor_total ?? 0)}
-                itens={(itens ?? []).map((i: any) => ({ tipo: i.tipo, descricao: i.descricao, quantidade: i.quantidade, valor_total: i.valor_total }))}
+                itens={(itens ?? [] as ItemRow[]).map(i => ({ tipo: i.tipo, descricao: i.descricao, quantidade: i.quantidade, valor_total: i.valor_total }))}
               />
             </div>
           </div>
@@ -97,7 +106,7 @@ export default async function OSDetailPage({ params }: { params: { num: string }
               <div className="table-wrap"><table className="data">
                 <thead><tr><th>Tipo</th><th>Descrição</th><th style={{ textAlign: "right" }}>Qtd</th><th>Un</th><th style={{ textAlign: "right" }}>V. unit</th><th style={{ textAlign: "right" }}>Total</th><th></th></tr></thead>
                 <tbody>
-                  {(itens ?? []).map(i => (
+                  {(itens ?? [] as ItemRow[]).map(i => (
                     <tr key={i.id}>
                       <td><span className="chip" style={{ cursor: "default", fontSize: 10 }}>{i.tipo === "mao_obra" ? "Mão de obra" : "Peça"}</span></td>
                       <td>{i.descricao}</td>

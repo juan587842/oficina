@@ -3,6 +3,12 @@ import Topbar from "@/components/shell/Topbar";
 import GraficoSemanal from "@/components/dashboard/GraficoSemanal";
 import Link from "next/link";
 import { BRL, fmtData, statusLabel } from "@/lib/fmt";
+import type { Database } from "@/types/database";
+
+type OSRow = Database["public"]["Tables"]["ordens_servico"]["Row"];
+type OSRecente = Pick<OSRow, "num" | "status" | "problema" | "valor_total" | "entrada" | "cliente_id" | "placa"> & {
+  clientes: { nome: string } | null;
+};
 
 export const dynamic = "force-dynamic";
 
@@ -37,7 +43,7 @@ export default async function DashboardPage() {
     { count: andamento },
     { count: aguardando },
     { data: faturadas },
-    { data: recentes },
+    { data: recentesRaw },
     { data: osSemana }
   ] = await Promise.all([
     supabase.from("ordens_servico").select("*", { count: "exact", head: true }).eq("status", "aberta"),
@@ -48,6 +54,7 @@ export default async function DashboardPage() {
     supabase.from("ordens_servico").select("entrada,conclusao,valor_total,status").gte("entrada", inicioSemana.toISOString())
   ]);
 
+  const recentes = (recentesRaw ?? []) as OSRecente[];
   const receita = (faturadas ?? []).reduce((s, r) => s + Number(r.valor_total || 0), 0);
 
   const diasSemana = ultimos7Dias();
@@ -108,7 +115,7 @@ export default async function DashboardPage() {
                 <tr><th>OS</th><th>Cliente</th><th>Placa</th><th>Problema</th><th>Status</th><th>Entrada</th><th style={{ textAlign: "right" }}>Valor</th></tr>
               </thead>
               <tbody>
-                {(recentes ?? []).map((r: any) => (
+                {recentes.map((r) => (
                   <tr key={r.num}>
                     <td><Link href={`/os/${r.num}`} className="mono">{r.num}</Link></td>
                     <td>{r.clientes?.nome ?? r.cliente_id}</td>
@@ -119,7 +126,7 @@ export default async function DashboardPage() {
                     <td className="mono" style={{ textAlign: "right" }}>{BRL(r.valor_total)}</td>
                   </tr>
                 ))}
-                {(!recentes || recentes.length === 0) && (
+                {recentes.length === 0 && (
                   <tr><td colSpan={7} style={{ textAlign: "center", padding: 40, color: "var(--graxa)" }}>Nenhuma OS ainda. <Link href="/os/nova" style={{ color: "var(--laranja)" }}>Abrir a primeira →</Link></td></tr>
                 )}
               </tbody>

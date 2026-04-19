@@ -13,10 +13,14 @@ export const statusLabel = (s: string) =>
 
 export const fmtData = (s: string | null | undefined) => {
   if (!s) return "—";
-  return new Date(s).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return "—";
+  return d.toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
 };
 
 export const fmtDataSimples = (s: string | null | undefined) => {
   if (!s) return "—";
-  return new Date(s).toLocaleDateString("pt-BR");
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("pt-BR");
 };

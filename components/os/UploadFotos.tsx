@@ -97,7 +97,7 @@ export default function UploadFotos({ osNum, fotos }: {
               <div key={f.id} style={{ border: "2px solid var(--preto)", borderRadius: 3, overflow: "hidden", background: "var(--papel)", position: "relative" }}>
                 <a href={f.signedUrl} target="_blank" rel="noopener noreferrer">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={f.signedUrl} alt={f.descricao ?? "foto"} style={{ width: "100%", height: 120, objectFit: "cover", display: "block" }} />
+                  <img src={f.signedUrl} alt={f.descricao ?? `Foto da OS ${osNum}`} style={{ width: "100%", height: 120, objectFit: "cover", display: "block" }} />
                 </a>
                 {f.descricao && (
                   <div style={{ padding: "4px 8px", fontSize: 11, borderTop: "1px solid var(--border-soft)", fontFamily: "JetBrains Mono, monospace" }}>{f.descricao}</div>

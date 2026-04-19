@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ClientesPage({ searchParams }: { searchParams: { tipo?: string; q?: string } }) {
   const supabase = createClient();
-  let query = supabase.from("clientes").select("*").order("nome");
+  let query = supabase.from("clientes").select("*").order("nome").limit(500);
   if (searchParams.tipo && ["frota", "autonomo"].includes(searchParams.tipo)) {
     query = query.eq("tipo", searchParams.tipo);
   }
